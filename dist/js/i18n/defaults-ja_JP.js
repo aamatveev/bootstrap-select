@@ -1,4 +1,6 @@
 /*!
+ * BUILDED FROM FORK https://github.com/aamatveev/bootstrap-select.git
+ * BRANCH v1.13.18_extended
  * Bootstrap-select v1.13.18_ext (https://developer.snapappointments.com/bootstrap-select)
  *
  * Copyright 2012-2022 SnapAppointments, LLC
