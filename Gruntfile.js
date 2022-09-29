@@ -10,6 +10,8 @@ module.exports = function (grunt) {
     // Metadata.
     pkg: grunt.file.readJSON('package.json'),
     banner: '/*!\n' +
+    ' * BUILDED FROM FORK https://github.com/aamatveev/bootstrap-select.git\n' +
+    ' * BRANCH v1.13.18_extended\n' +
     ' * Bootstrap-select v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
     ' *\n' +
     ' * Copyright 2012-<%= grunt.template.today(\'yyyy\') %> SnapAppointments, LLC\n' +
