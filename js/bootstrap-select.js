@@ -675,6 +675,7 @@
   elementTemplates.text.className = 'text';
 
   elementTemplates.checkMark = elementTemplates.span.cloneNode(false);
+  elementTemplates.deleteMark = elementTemplates.span.cloneNode(false);
 
   var REGEXP_ARROW = new RegExp(keyCodes.ARROW_UP + '|' + keyCodes.ARROW_DOWN);
   var REGEXP_TAB_OR_ESCAPE = new RegExp('^' + keyCodes.TAB + '$|' + keyCodes.ESCAPE);
@@ -876,6 +877,7 @@
     size: 'auto',
     title: null,
     allowClear: false,
+    allowDeleteOption: false,
     selectedTextFormat: 'values',
     width: false,
     container: false,
@@ -1040,6 +1042,8 @@
           inputGroup = '',
           autofocus = this.autofocus ? ' autofocus' : '';
 
+      var showDelete = this.options.allowDeleteOption ? ' show-delete' : '';
+
       if (version.major < 4 && this.$element.parent().hasClass('input-group')) {
         inputGroup = ' input-group-btn';
       }
@@ -1103,7 +1107,7 @@
       }
 
       drop =
-        '<div class="dropdown bootstrap-select' + showTick + inputGroup + '">' +
+        '<div class="dropdown bootstrap-select' + showDelete + showTick + inputGroup + '">' +
           '<button type="button" tabindex="-1" class="' + this.options.styleBase + ' dropdown-toggle" ' + (this.options.display === 'static' ? 'data-display="static"' : '') + 'data-toggle="dropdown"' + autofocus + ' role="combobox" aria-owns="' + this.selectId + '" aria-haspopup="listbox" aria-expanded="false">' +
             '<div class="filter-option">' +
               '<div class="filter-option-inner">' +
@@ -1617,6 +1621,11 @@
           selectData = this.selectpicker.main.data,
           mainElements = [],
           widestOptionLength = 0;
+
+      if (that.options.allowDeleteOption) {
+        elementTemplates.deleteMark.className = 'glyphicon glyphicon-trash delete-mark';
+        elementTemplates.a.appendChild(elementTemplates.deleteMark);
+      }
 
       if ((that.options.showTick || that.multiple) && !elementTemplates.checkMark.parentNode) {
         elementTemplates.checkMark.className = this.options.iconBase + ' ' + that.options.tickIcon + ' check-mark';
@@ -2482,7 +2491,22 @@
         that.focusItem(hoverLi, hoverData, true);
       });
 
+      this.$menuInner.on('click', 'li a .delete-mark', function (e) {
+        var $this = $(this),
+            // element = that.$element[0],
+            position0 = that.isVirtual() ? that.selectpicker.view.position0 : 0,
+            clickedData = that.selectpicker.current.data[$this.parent().parent().index() + position0],
+            option = clickedData.option
+            ;
+
+        option.remove();
+        that.refresh();
+        that.$element.trigger('option-deleted' + EVENT_KEY, clickedData.text);
+        e.stopPropagation();
+      })
+
       this.$menuInner.on('click', 'li a', function (e, retainActive) {
+        console.log('clicked li a: ', e);
         var $this = $(this),
             element = that.$element[0],
             position0 = that.isVirtual() ? that.selectpicker.view.position0 : 0,

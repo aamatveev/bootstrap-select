@@ -337,6 +337,10 @@ select.selectpicker {
           display: none;
         }
 
+        span.delete-mark {
+          display: none;
+        }
+
         span.text {
           display: inline-block;
         }
@@ -402,6 +406,19 @@ select.selectpicker {
       position: absolute;
       display: inline-block;
       right: 15px;
+      top: 5px;
+    }
+
+    li a span.text {
+      margin-right: 34px;
+    }
+  }
+
+  &.show-delete .dropdown-menu {
+    span.delete-mark {
+      position: absolute;
+      display: inline-block;
+      right: -5px;
       top: 5px;
     }
 
