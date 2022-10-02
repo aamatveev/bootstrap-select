@@ -324,6 +324,9 @@ select.selectpicker {
 .bootstrap-select .dropdown-menu li a span.check-mark {
   display: none;
 }
+.bootstrap-select .dropdown-menu li a span.delete-mark {
+  display: none;
+}
 .bootstrap-select .dropdown-menu li a span.text {
   display: inline-block;
 }
@@ -382,6 +385,15 @@ select.selectpicker {
   top: 5px;
 }
 .bootstrap-select.show-tick .dropdown-menu li a span.text {
+  margin-right: 34px;
+}
+.bootstrap-select.show-delete .dropdown-menu span.delete-mark {
+  position: absolute;
+  display: inline-block;
+  right: -5px;
+  top: 5px;
+}
+.bootstrap-select.show-delete .dropdown-menu li a span.text {
   margin-right: 34px;
 }
 .bootstrap-select .bs-ok-default:after {
